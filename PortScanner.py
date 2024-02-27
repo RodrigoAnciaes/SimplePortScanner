@@ -19,6 +19,23 @@ well_known_ports = {
 
 
 def scan_ports(target, start_port, end_port):
+    """
+    Scan ports on a target IP address within a specified range.
+
+    Args:
+        target (str): The target IP address to scan.
+        start_port (int): The starting port number of the range.
+        end_port (int): The ending port number of the range.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    
+    Prints:
+        Port number and service name (if available) of any open ports.
+    """
     print(f"Scanning ports on {target}...")
     for port in range(start_port, end_port + 1):
         try:
@@ -49,4 +66,4 @@ if __name__ == "__main__":
     scan_ports(args.target, args.start_port, args.end_port)
 
 # example usage with command line arguments
-# python PortScanner.py -h 10.
+# python PortScanner.py [target] [start_port] [end_port
