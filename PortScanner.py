@@ -1,21 +1,14 @@
 import socket
 import argparse
+import pandas as pd
+import csv
 
-well_known_ports = {
-    20: "FTP",
-    21: "FTP",
-    22: "SSH",
-    23: "Telnet",
-    25: "SMTP",
-    53: "DNS",
-    80: "HTTP",
-    110: "POP3",
-    143: "IMAP",
-    443: "HTTPS",
-    465: "SMTPS",
-    993: "IMAPS",
-    995: "POP3S"
-}
+#read csv file and save variable in dictionary
+with open('tcp.csv') as f:
+    data = pd.read_csv(f)
+
+#convert dictionary to dataframe
+df = pd.DataFrame(data)
 
 
 def scan_ports(target, start_port, end_port):
@@ -46,8 +39,8 @@ def scan_ports(target, start_port, end_port):
             # Attempt to connect to the target IP and port
             result = sock.connect_ex((target, port))
             if result == 0:
-                if port in well_known_ports:
-                    print(f"Port {port} ({well_known_ports[port]}): Open")
+                if port in df.index:
+                    print(f"Port {port}: {df.loc[port]['description']}: Open")
                 else:
                     print(f"Port {port}: Open")
             sock.close()
